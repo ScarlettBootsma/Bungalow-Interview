@@ -31,20 +31,3 @@ def add_to_table(all_vals):
 
         h = House.create(val)
         h.save()
-
-
-def get_from_table():
-    # things
-    minimum = 1
-    maximum = 100000000
-    baths = 0
-    sqft = 0
-    if minimum and maximum:
-        vals = House.objects.filter(price__gte=minimum).filter(price__lte=maximum)
-    elif not maximum:
-        vals = House.objects.filter(price__gte=minimum)
-    else:
-        vals = House.objects.filter(price_lte=maximum)
-    vals = House.objects.filter(num_bathrooms__gte=baths)
-    vals = House.objects.filter(home_size__gte=sqft)
-    return vals
