@@ -55,21 +55,16 @@ if __name__ == '__main__':
             except ValueError:
                 maximum = 0
 
-            print(minimum)
-            print(maximum)
-
             if minimum > 0 and maximum > 0:
-                print("both")
-                vals = House.objects.filter(last_sold_price__range=(minimum, maximum))# price__gte=minimum, price__lte=maximum)
+                vals = House.objects.filter(last_sold_price__range=(minimum, maximum))
+
             elif maximum == 0 and minimum == 0:
-                print("none")
                 vals = House.objects.all()
+
             elif minimum == 0:
-                print("only max")
                 vals = House.objects.filter(last_sold_price__lte=maximum)
+                
             else:
-                print(minimum)
-                print("only min")
                 vals = House.objects.filter(last_sold_price__gte=minimum)
 
             for val in vals:
