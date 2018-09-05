@@ -72,7 +72,8 @@ if __name__ == '__main__':
                 print("only min")
                 vals = House.objects.filter(last_sold_price__gte=minimum)
 
-            print(vals)
+            for val in vals:
+                print(val.link)
 
         elif value == "2":
             #bathrooms
@@ -83,7 +84,8 @@ if __name__ == '__main__':
 
             vals = House.objects.filter(num_bathrooms__gte=baths)
 
-            print(vals)
+            for val in vals:
+                print(val.link)
 
         elif value == "3":
             #size
@@ -94,8 +96,8 @@ if __name__ == '__main__':
 
             vals = House.objects.filter(home_size__gte=sqft)
 
-            print(vals)
+            for val in vals:
+                print(val.link)
 
         elif value == "4":
             break
-
