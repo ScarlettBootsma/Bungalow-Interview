@@ -1,4 +1,27 @@
 #!/usr/bin/python
+
+def read_file(file_name):
+    fp = open(file_name, "r")
+    arr = []
+
+    for line in fp:
+        line = line.rstrip('\n')
+        to_add = []
+        for val in line.split(","):
+            to_add.append(val)
+        arr.append(to_add)
+
+    return arr
+
+
+def add_to_table(all_vals):
+    for val in all_vals:
+        if val == all_vals[0]:
+            continue
+
+        h = House.create(val)
+        h.save()
+
 import os, sys
 if __name__ == '__main__':
     # Setup environ
@@ -9,6 +32,11 @@ if __name__ == '__main__':
     import django
     django.setup()
     from houses.models import House
+
+    House.objects.all().delete()
+
+    all_vals = read_file("Los_Angeles-2018-08-08_0845.csv")
+    add_to_table(all_vals)
 
     #get user input here
     while True:
@@ -71,23 +99,3 @@ if __name__ == '__main__':
         elif value == "4":
             break
 
-def get_from_table():
-    minimum = 1
-    maximum = 100000000
-    baths = 6.5
-    sqft = 10000
-    if minimum and maximum:
-        vals = House.objects.filter(price__gte=minimum).filter(price__lte=maximum)
-    elif not maximum:
-        vals = House.objects.filter(price__gte=minimum)
-    else:
-        vals = House.objects.filter(price_lte=maximum)
-    vals = House.objects.filter(num_bathrooms__gte=baths)
-    # vals = House.objects.filter(home_size__gte=sqft)
-    return vals
-
-
-#h = get_from_table()
-#for i in h:
-#    print(i)
-#    print(i.num_bathrooms)
